@@ -5,16 +5,19 @@ import { useAuth } from "../../../context/AuthContext";
 import { useTheme } from "../../../context/ThemeContext";
 import QuickActions from "../../../components/quickActions/QuickActions";
 import SectionHeader from "../../../components/sectionHeader/SectionHeader";
-import { CaretRight, Megaphone } from "phosphor-react";
+import { CaretRight, Megaphone, SquaresFour } from "phosphor-react";
 import CardSection from "../../../components/cardSection/CardSection";
 import CardLayout from "../../../components/cardLayout/CardLayout";
 import { Link } from "react-router";
+import { getProjects } from "../../../api/project.api";
+import ProjectCard from "../../../components/projectCard.jsx/ProjectCard";
 
 function Dashboard() {
   const { user } = useAuth();
   const { darkMode, toggleMode } = useTheme();
   const [message, setMessage] = useState({ text: "", type: "" });
   const [showExitTransition, setShowExitTransition] = useState(true);
+  const [projects, setProjects] = useState([]);
 
   // Page Transition Animation + Message
   useEffect(() => {
@@ -26,6 +29,18 @@ function Dashboard() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const fetchProjects = async () => {
+    setMessage({ text: "Loading Projects", type: "loading" });
+    const res = await getProjects();
+    setProjects(res.data);
+    setMessage({ text: "Projects loaded", type: "success" });
+  };
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
   return (
     <>
       <PageTransition isVisible={showExitTransition} mode="exit" />
@@ -39,47 +54,38 @@ function Dashboard() {
         </div>
       </section>
 
-      <div className="sectionHalf">
-        <section className={darkMode ? "sectionDark" : "sectionLight"}>
-          <div className="sectionWrapper">
-            <div className="sectionContent">
-              <CardSection>
-                <SectionHeader icon={Megaphone} title="LATEST ANNOUNCEMENTS" />
-                <CardLayout style="cardLayout1">
-                  {/* {announcementData
-                    .reverse()
-                    .slice(0, 2)
-                    .map((announcement, index) => (
-                      <AnnouncementCard
-                        key={index}
-                        name={announcement.name}
-                        position={announcement.position}
-                        date={announcement.date}
-                        time={announcement.time}
-                        title={announcement.title}
-                        message={announcement.message}
-                        link={announcement.link}
-                        avatarUrl={announcement.avatarUrl}
-                        truncate
-                      />
-                    ))} */}
-                  <Link to="/user/announcements" className="button buttonType2">
-                    View All
-                    <CaretRight weight="bold" />
-                  </Link>
-                </CardLayout>
-              </CardSection>
-            </div>
+      <section className={darkMode ? "sectionDark" : "sectionLight"}>
+        <div className="sectionWrapper">
+          <div className="sectionContent">
+            <CardSection>
+              <SectionHeader icon={SquaresFour} title="LATEST PROJECTS" />
+              <CardLayout style="cardLayout1">
+                {projects
+                  .slice() // create a shallow copy so we don't mutate the original
+                  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // newest first
+                  .slice(0, 2)
+                  .map((project) => (
+                    <ProjectCard key={project.id} project={project} dashboard />
+                  ))}
+                <Link
+                  to="/user/workspace/projects"
+                  className="button buttonType2"
+                >
+                  View All
+                  <CaretRight weight="bold" />
+                </Link>
+              </CardLayout>
+            </CardSection>
           </div>
-        </section>
-        <section className={darkMode ? "sectionDark" : "sectionLight"}>
-          <div className="sectionWrapper">
-            <div className="sectionContent">
-              <SectionHeader icon={Megaphone} title="LATEST ANNOUNCEMENTS" />
-            </div>
+        </div>
+      </section>
+      <section className={darkMode ? "sectionDark" : "sectionLight"}>
+        <div className="sectionWrapper">
+          <div className="sectionContent">
+            <SectionHeader icon={Megaphone} title="LATEST ANNOUNCEMENTS" />
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </>
   );
 }

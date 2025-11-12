@@ -65,6 +65,23 @@
     }
   }
 
+  // TYPE 2-1 - Orange Background Hover - Padding Suitable for Icon Size - Width 100%
+  &.buttonType2-1 {
+    background-color: rgb($error500, 0.1);
+    border-radius: 10px;
+    border: 1px solid $error500;
+    padding: 0.5rem;
+    transition: 0.3s;
+    width: 100%;
+
+    &:hover {
+      background-color: rgb($error500, 0.5);
+      color: $neutral100;
+      border: 1px solid $error500;
+      transition: 0.3s;
+    }
+  }
+
   // TYPE 2 - Orange Background Hover - Padding Suitable for Icon Size - Width Fit Content
   &.buttonType3 {
     background-color: rgb($neutral400, 0.1);

@@ -1,0 +1,88 @@
+.tasksTableWrapper {
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  padding: 0.75rem;
+  border: 1px solid rgba($neutral500, 0.4);
+
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  .projectTitle {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .tasksTable {
+    width: 100%;
+    border-collapse: separate; // change from collapse to separate to allow border-radius
+    border-spacing: 0; // remove gaps
+    border-radius: 10px; // <-- table's border radius
+    overflow: hidden; // ensures the radius clips the borders
+
+    th,
+    td {
+      border: 1px solid rgba($neutral500, 0.4);
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+    }
+
+    th {
+      background-color: $neutral900;
+      color: $neutral100;
+      font-weight: 600;
+    }
+
+    td input,
+    td select {
+      width: 100%;
+      padding: 4px 6px;
+      border-radius: 6px;
+      border: 1px solid rgba($neutral500, 0.4);
+    }
+
+    .taskStatus {
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-weight: 500;
+
+      &.pending {
+        background-color: $warning100;
+        color: $warning600;
+        border: 1px solid $warning300;
+      }
+      &.in_progress {
+        background-color: $info100;
+        color: $info600;
+        border: 1px solid $info300;
+      }
+      &.completed {
+        background-color: $success100;
+        color: $success600;
+        border: 1px solid $success300;
+      }
+    }
+
+    .taskPriority {
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-weight: 500;
+
+      &.low {
+        background-color: $success100;
+        color: $success600;
+        border: 1px solid $success300;
+      }
+      &.medium {
+        background-color: $warning100;
+        color: $warning600;
+        border: 1px solid $warning300;
+      }
+      &.high {
+        background-color: $error100;
+        color: $error600;
+        border: 1px solid $error300;
+      }
+    }
+  }
+}

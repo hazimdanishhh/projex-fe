@@ -3,6 +3,19 @@
 import axios from "./axiosConfig";
 
 // ========================
+// Register User
+// ========================
+export const registerUser = async (name, username, email, password) => {
+  const res = await axios.post("/auth/register", {
+    name,
+    username,
+    email,
+    password,
+  });
+  return res.data;
+};
+
+// ========================
 // Login User
 // ========================
 export const loginUser = async (email, password) => {
@@ -14,7 +27,6 @@ export const loginUser = async (email, password) => {
 // Logout User
 // ========================
 // This functionality is to inform the backend that the user has logged out and cleared token from client
-
 export const logoutUser = async () => {
   const res = await axios.post("/auth/logout");
 
