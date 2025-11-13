@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { createUserAsAdmin } from "../../api/admin.api";
+import { useTheme } from "../../context/ThemeContext";
 
 function CreateUserForm({ setMessage }) {
+  const { darkMode, toggleMode } = useTheme();
+
   const [form, setForm] = useState({
     name: "",
+    username: "", // <-- add this
     email: "",
     password: "",
-    role: "user", //default
+    role: "user",
   });
 
   // Handle Input Changes
@@ -22,6 +26,10 @@ function CreateUserForm({ setMessage }) {
     // Frontend validation
     if (!form.name.trim()) {
       return setMessage({ text: "Name is required", type: "error" });
+    }
+
+    if (!form.username.trim()) {
+      return setMessage({ text: "Username is required", type: "error" });
     }
 
     if (!form.email.trim()) {
@@ -50,6 +58,7 @@ function CreateUserForm({ setMessage }) {
 
       setForm({
         name: "",
+        username: "",
         email: "",
         password: "",
         role: "user",
@@ -65,7 +74,10 @@ function CreateUserForm({ setMessage }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className={darkMode ? "userForm sectionDark" : "userForm sectionLight"}
+    >
       <label htmlFor="name">Name</label>
       <input
         id="name"
@@ -75,6 +87,17 @@ function CreateUserForm({ setMessage }) {
         onChange={handleChange}
         placeholder="Your Name"
         autoComplete="name"
+      />
+
+      <label htmlFor="username">Username</label>
+      <input
+        id="username"
+        name="username"
+        type="text"
+        value={form.username}
+        onChange={handleChange}
+        placeholder="Username"
+        autoComplete="username"
       />
 
       <label htmlFor="email">Email</label>

@@ -46,11 +46,10 @@ const supportSegment = {
 const adminSegment = {
   segmentTitle: "ADMIN",
   links: [
-    { label: "All Users", icon: Users, path: "admin/users" },
-    { label: "Create User", icon: UserPlus, path: "admin/create-user" },
-    { label: "Roles & Permissions", icon: Gear, path: "admin/roles" },
-    { label: "Audit Logs", icon: FileText, path: "admin/audit-logs" },
-    { label: "System Settings", icon: Gear, path: "admin/settings" },
+    { label: "Dashboard", icon: House, path: "dashboard" },
+    { label: "Admin Profile", icon: UserCircle, path: "profile" },
+    // { label: "All Users", icon: Users, path: "users" },
+    { label: "Create User", icon: UserPlus, path: "create-user" },
   ],
 };
 
@@ -63,5 +62,5 @@ export const sideNavLinkData = {
   general: [commonSegment, workspaceSegment, supportSegment],
 
   // Admin override (has full system control)
-  admin: [commonSegment, workspaceSegment, adminSegment],
+  admin: [adminSegment],
 };

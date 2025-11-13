@@ -24,3 +24,9 @@ export const updateUserById = async (id, payload) => {
   const res = await axios.patch(`/users/${id}`, payload);
   return res.data;
 };
+
+// ADMIN ONLY: Update User by ID
+export const deleteUserById = async (id) => {
+  const res = await axios.delete(`/users/${id}`);
+  return res.data;
+};

@@ -20,6 +20,7 @@ import ThemeProvider from "./context/ThemeContext";
 import Projects from "./pages/user/workspace/projects/Projects";
 import Tasks from "./pages/user/workspace/tasks/Tasks";
 import Help from "./pages/user/help/Help";
+import RegisterPage from "./pages/register/RegisterPage";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -31,6 +32,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route index element={<LoginPage />} />
 
             <Route path="/login" element={<LoginPage />} />
+
+            <Route path="/register" element={<RegisterPage />} />
 
             {/* Protected Routes are nested in a "UserLayout" or "Admin Layout" */}
             {/* Then Each nested route is nested in their respective layout component */}

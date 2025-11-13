@@ -1,0 +1,34 @@
+.adminUserCard {
+  border: 1px solid rgba(200, 200, 200, 0.4);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .userDetails,
+  .userForm {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  input,
+  select {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(200, 200, 200, 0.4);
+  }
+
+  .buttons {
+    display: flex;
+    gap: 6px;
+  }
+
+  p {
+    margin: 0;
+    min-width: 100px;
+  }
+}

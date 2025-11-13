@@ -138,10 +138,14 @@ export default function LoginForm({ setMessage }) {
             {/* Submit Button */}
             <Button
               name="Login"
-              style="button buttonType1"
+              style="button buttonType2"
               icon={SignIn}
               type="submit"
             />
+
+            <p>
+              New user? <a href="/register">Sign Up</a>
+            </p>
           </motion.form>
         </motion.div>
       </section>

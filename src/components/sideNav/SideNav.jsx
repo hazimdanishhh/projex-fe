@@ -19,7 +19,7 @@ export default function SideNav() {
   const [message, setMessage] = useState({ text: "", type: "" });
 
   // Determine user’s accessible navigation
-  const userRole = user?.role?.name?.toLowerCase() || "staff";
+  const userRole = user?.role?.toLowerCase() || "user";
 
   // Fallbacks
   const userNavSegments =
