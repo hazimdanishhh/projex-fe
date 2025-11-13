@@ -57,7 +57,7 @@ export default function TaskCard({
               placeholder="Task Title"
               required
             />
-            <input
+            <textarea
               name="description"
               value={formData.description}
               onChange={handleChange}
@@ -121,12 +121,12 @@ export default function TaskCard({
               <div className="taskCardButtons">
                 <Button
                   icon={PencilSimple}
-                  style="button buttonType1"
+                  style="button buttonType2"
                   onClick={() => setEditing(true)}
                 />
                 <Button
                   icon={Trash}
-                  style="button buttonType1-1"
+                  style="button buttonType2-1"
                   onClick={handleDelete}
                 />
               </div>

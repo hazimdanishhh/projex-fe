@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import useMediaQuery from "../../functions/mediaQuery";
 
-function QuickActions() {
+function QuickActions({ onClick }) {
   const { darkMode, toggleMode } = useTheme();
   const [quickActionsIsOpen, setQuickActionsIsOpen] = useState(true);
 
@@ -21,6 +21,14 @@ function QuickActions() {
       setQuickActionsIsOpen(true);
     }
   }, [isDesktop]);
+
+  function handleAction(actionType) {
+    if (actionType === "project") {
+      onClick("project");
+    } else if (actionType === "task") {
+      onClick("task");
+    }
+  }
 
   return (
     <div className="quickActionsSection">
@@ -51,7 +59,7 @@ function QuickActions() {
                 key={index}
                 icon={action.icon}
                 name={action.name}
-                path={action.path}
+                onClick={() => handleAction(action.actionType)}
               />
             ))}
           </motion.div>

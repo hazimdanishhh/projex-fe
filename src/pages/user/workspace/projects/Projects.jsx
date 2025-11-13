@@ -6,27 +6,38 @@ import MessageUI from "../../../../components/messageUI/MessageUI";
 import CardSection from "../../../../components/cardSection/CardSection";
 import SectionHeader from "../../../../components/sectionHeader/SectionHeader";
 import CardLayout from "../../../../components/cardLayout/CardLayout";
-import { Plus, SquaresFour } from "phosphor-react";
+import { CircleNotch, Plus, SquaresFour } from "phosphor-react";
 import QuickActions from "../../../../components/quickActions/QuickActions";
 import Button from "../../../../components/buttons/button/Button";
 import ProjectForm from "../../../../components/projectForm/ProjectForm";
+import TaskForm from "../../../../components/taskForm/TaskForm";
+import { motion } from "framer-motion";
 
 export default function Projects() {
   const { darkMode } = useTheme();
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
   const [projects, setProjects] = useState([]);
   const [showProjectModal, setShowProjectModal] = useState(false);
+  const [showTaskModal, setShowTaskModal] = useState(false);
 
   const fetchProjects = async () => {
     setMessage({ text: "Loading Projects", type: "loading" });
+    setIsLoading(true);
     const res = await getProjects();
     setProjects(res.data);
     setMessage({ text: "Projects loaded", type: "success" });
+    setIsLoading(false);
   };
 
   useEffect(() => {
     fetchProjects();
   }, []);
+
+  const handleTaskCreated = (newTask) => {
+    setTasks((prev) => [...prev, newTask]);
+    setShowTaskModal(false); // close modal after creation
+  };
 
   const handleProjectCreated = (newProject) => {
     setProjects((prev) => [...prev, newProject]);
@@ -50,20 +61,12 @@ export default function Projects() {
       <section className={darkMode ? "sectionDark" : "sectionLight"}>
         <div className="sectionWrapper">
           <div className="sectionContent">
-            <CardLayout style="cardLayout5">
-              <button
-                className="quickActionsCard"
-                onClick={() => setShowProjectModal(true)}
-              >
-                <div className="quickActionsCardTitle">
-                  <SquaresFour size="18" />
-                  <p className="textRegular textXXXS">Create Project</p>
-                </div>
-                <div className="quickActionsPlusIcon">
-                  <Plus />
-                </div>
-              </button>
-            </CardLayout>
+            <QuickActions
+              onClick={(type) => {
+                if (type === "project") setShowProjectModal(true);
+                if (type === "task") setShowTaskModal(true);
+              }}
+            />
           </div>
         </div>
       </section>
@@ -76,24 +79,56 @@ export default function Projects() {
         />
       )}
 
+      {/* Modal TaskForm */}
+      {showTaskModal && (
+        <TaskForm
+          projects={projects}
+          onTaskCreated={handleTaskCreated}
+          setMessage={setMessage}
+          onClose={() => setShowTaskModal(false)}
+        />
+      )}
+
       <div className="sectionHalf">
         <section className={darkMode ? "sectionDark" : "sectionLight"}>
           <div className="sectionWrapper">
-            <div className="sectionContent">
-              <CardSection>
-                <SectionHeader icon={SquaresFour} title="ALL PROJECTS" />
-                {projects.length === 0 && <p>You have no projects</p>}
-                <CardLayout style="cardLayout2">
-                  {projects.map((project) => (
-                    <ProjectCard
-                      key={project.id}
-                      project={project}
-                      onProjectUpdated={handleProjectUpdated}
-                      onProjectDeleted={handleProjectDeleted}
-                    />
-                  ))}
-                </CardLayout>
-              </CardSection>
+            <div className="sectionContent" style={{ gap: "1rem" }}>
+              <SectionHeader icon={SquaresFour} title="ALL PROJECTS" />
+              {isLoading ? (
+                <div className="loadingIcon">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{
+                      repeat: Infinity,
+                      ease: "linear",
+                      duration: 1,
+                    }}
+                  >
+                    <CircleNotch />
+                  </motion.div>
+                </div>
+              ) : projects.length === 0 ? (
+                <p>You have no projects...</p>
+              ) : null}
+
+              <CardLayout style="cardLayout2">
+                {projects.map((project) => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    onProjectUpdated={handleProjectUpdated}
+                    onProjectDeleted={handleProjectDeleted}
+                  />
+                ))}
+
+                {/* CREATE PROJECT BUTTON */}
+                <Button
+                  name="Create Project"
+                  icon={Plus}
+                  style="button buttonType2"
+                  onClick={() => setShowProjectModal(true)}
+                />
+              </CardLayout>
             </div>
           </div>
         </section>

@@ -12,6 +12,8 @@
     flex-direction: column;
     gap: 0.5rem;
     text-align: start;
+    word-break: break-word;
+    overflow-wrap: anywhere;
 
     .taskCardStatus {
       align-self: flex-start;

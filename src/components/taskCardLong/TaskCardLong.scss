@@ -1,0 +1,130 @@
+.taskGroupWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid rgba($neutral500, 0.4);
+  border-radius: 10px;
+
+  .projectTitle {
+    text-align: start;
+  }
+
+  .taskGroupCards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .taskCardLong {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      border: 1px solid rgba($neutral500, 0.4);
+      border-radius: 10px;
+      padding: 12px;
+      gap: 0.8rem;
+      overflow-wrap: break-word;
+
+      .taskCardContent {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        text-align: start;
+        width: 100%;
+
+        .title {
+          flex: 1 1 20%;
+          font-weight: 600;
+          word-break: break-word;
+          overflow-wrap: break-word;
+        }
+
+        .description {
+          flex: 2 1 60%;
+          word-break: break-word;
+          overflow-wrap: break-word;
+        }
+
+        .dueDate {
+          flex: 1 1 15%;
+          white-space: nowrap;
+        }
+
+        .taskCardStatus,
+        .taskCardPriority {
+          align-self: flex-start;
+          border: 1px solid rgba($neutral500, 0.4);
+          padding: 0.2rem 0.6rem;
+          border-radius: 10px;
+          font-weight: 500;
+          white-space: nowrap; // prevent wrapping
+        }
+
+        // Status Colors
+        .taskCardStatus {
+          &.pending {
+            background-color: $warning100;
+            color: $warning600;
+            border-color: $warning300;
+          }
+          &.in_progress {
+            background-color: $info100;
+            color: $info600;
+            border-color: $info300;
+          }
+          &.completed {
+            background-color: $success100;
+            color: $success600;
+            border-color: $success300;
+          }
+        }
+
+        // Priority Colors
+        .taskCardPriority {
+          &.low {
+            background-color: $success100;
+            color: $success600;
+            border-color: $success300;
+          }
+          &.medium {
+            background-color: $warning100;
+            color: $warning600;
+            border-color: $warning300;
+          }
+          &.high {
+            background-color: $error100;
+            color: $error600;
+            border-color: $error300;
+          }
+        }
+
+        .taskCardButtons {
+          display: flex;
+          gap: 8px;
+        }
+
+        // Responsive layout
+        @media screen and (max-width: 1024px) {
+          flex-direction: column;
+          align-items: flex-start;
+
+          .title,
+          .description,
+          .dueDate,
+          .taskCardStatus,
+          .taskCardPriority {
+            flex: unset;
+            width: 100%;
+          }
+
+          .taskCardButtons {
+            align-self: stretch;
+            justify-content: flex-start;
+          }
+        }
+      }
+    }
+  }
+}

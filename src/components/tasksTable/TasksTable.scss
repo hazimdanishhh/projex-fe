@@ -28,8 +28,8 @@
     }
 
     th {
-      background-color: $neutral900;
-      color: $neutral100;
+      background-color: rgb($neutral900, 0.1);
+      // color: $neutral100;
       font-weight: 600;
     }
 

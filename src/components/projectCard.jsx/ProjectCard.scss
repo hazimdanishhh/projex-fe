@@ -18,6 +18,43 @@
       gap: 0.3rem;
     }
 
+    .projectCardHead {
+      display: flex;
+      justify-content: space-between;
+
+      .projectCardStatus {
+        align-self: end;
+        border: 1px solid rgba($neutral500, 0.4);
+        padding: 0.3rem 0.6rem;
+        border-radius: 30px;
+        font-weight: 500;
+
+        &.active {
+          background-color: $info100;
+          color: $info600;
+          border-color: $info300;
+        }
+
+        &.completed {
+          background-color: $success100;
+          color: $success600;
+          border-color: $success300;
+        }
+
+        &.on_hold {
+          background-color: $warning100;
+          color: $warning600;
+          border-color: $warning300;
+        }
+
+        &.archived {
+          background-color: $error100;
+          color: $error600;
+          border-color: $error300;
+        }
+      }
+    }
+
     p {
       display: flex;
       align-items: start;
@@ -25,43 +62,10 @@
       flex-direction: column;
       gap: 5px;
     }
-
-    .projectCardStatus {
-      align-self: end;
-      border: 1px solid rgba($neutral500, 0.4);
-      padding: 0.3rem 0.6rem;
-      border-radius: 30px;
-      font-weight: 500;
-
-      &.active {
-        background-color: $info100;
-        color: $info600;
-        border-color: $info300;
-      }
-
-      &.completed {
-        background-color: $success100;
-        color: $success600;
-        border-color: $success300;
-      }
-
-      &.on_hold {
-        background-color: $warning100;
-        color: $warning600;
-        border-color: $warning300;
-      }
-
-      &.archived {
-        background-color: $error100;
-        color: $error600;
-        border-color: $error300;
-      }
-    }
   }
 
   .projectCardButtons {
     display: flex;
     gap: 10px;
-    flex-wrap: wrap;
   }
 }

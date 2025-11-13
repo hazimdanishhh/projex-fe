@@ -3,7 +3,7 @@ import "./QuickActionsCard.scss";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 
-function QuickActionsCard({ icon, name, path }) {
+function QuickActionsCard({ icon, name, path, onClick }) {
   const Icon = icon;
 
   return (
@@ -12,7 +12,7 @@ function QuickActionsCard({ icon, name, path }) {
       initial={{ y: 0 }}
       whileHover={{ y: -3 }}
     >
-      <Link className="quickActionsCard" to={path}>
+      <button className="quickActionsCard" onClick={onClick}>
         <div className="quickActionsCardTitle">
           <Icon size="18" />
           <p className="textRegular textXXXS">{name}</p>
@@ -20,7 +20,7 @@ function QuickActionsCard({ icon, name, path }) {
         <div className="quickActionsPlusIcon">
           <Plus />
         </div>
-      </Link>
+      </button>
     </motion.div>
   );
 }

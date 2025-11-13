@@ -4,12 +4,12 @@ export const quickActionsHome = [
   {
     icon: SquaresFour,
     name: "Create Project",
-    path: "/user/workspace/projects",
+    actionType: "project",
   },
   {
     icon: ListDashes,
     name: "Create Task",
-    path: "/user/workspace/tasks",
+    actionType: "task",
   },
   // {
   //   icon: Folders,

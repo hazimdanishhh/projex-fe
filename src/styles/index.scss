@@ -56,6 +56,7 @@ textarea,
 option {
   font-family: "Plus Jakarta Sans", sans-serif;
   width: 100%;
+  min-width: max-content;
   padding: 1rem;
   border: 1px solid $medium;
   border-radius: 1rem;
@@ -65,7 +66,7 @@ option {
 }
 
 textarea {
-  height: 300px;
+  padding: 0.5rem;
 }
 
 input[type="submit"],
@@ -80,6 +81,7 @@ input[type="reset"] {
 }
 
 button {
+  font: inherit;
   background: inherit;
   color: inherit;
   border: none;

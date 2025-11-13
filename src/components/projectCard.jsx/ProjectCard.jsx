@@ -4,6 +4,7 @@ import "./ProjectCard.scss";
 import { updateProjectById, deleteProjectById } from "../../api/project.api";
 import Button from "../buttons/button/Button";
 import MessageUI from "../messageUI/MessageUI";
+import { PencilSimple, Trash } from "phosphor-react";
 
 export default function ProjectCard({
   project,
@@ -95,31 +96,33 @@ export default function ProjectCard({
         ) : (
           <>
             <div className="projectCardContent">
-              <p
-                className={`textLight textXXS projectCardStatus ${project.status}`}
-              >
-                ◉ {project.status.replace("_", " ")}
-              </p>
+              <div className="projectCardHead">
+                <p className="textLight textXS">
+                  Due:{" "}
+                  {project.dueDate ? `${project.dueDate.split("T")[0]}` : ""}
+                </p>
+                <p
+                  className={`textLight textXXS projectCardStatus ${project.status}`}
+                >
+                  ◉ {project.status.replace("_", " ")}
+                </p>
+              </div>
 
               <h3 className="textBold textM">{project.name}</h3>
               <p className="textRegular textS">
                 <span className="textLight textXXS">Description</span>{" "}
                 {project.description}
               </p>
-              <p className="textLight textXS">
-                <span className="textLight textXXS">Due: </span>
-                {project.dueDate ? `${project.dueDate.split("T")[0]}` : ""}
-              </p>
             </div>
             {!dashboard && (
               <div className="projectCardButtons">
                 <Button
-                  name="Edit"
+                  icon={PencilSimple}
                   style="button buttonType2"
                   onClick={() => setEditing(true)}
                 />
                 <Button
-                  name="Delete"
+                  icon={Trash}
                   style="button buttonType2-1"
                   onClick={handleDelete}
                 />

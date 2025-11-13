@@ -8,32 +8,51 @@ import MessageUI from "../../../../components/messageUI/MessageUI";
 import CardSection from "../../../../components/cardSection/CardSection";
 import SectionHeader from "../../../../components/sectionHeader/SectionHeader";
 import CardLayout from "../../../../components/cardLayout/CardLayout";
-import { ListChecks, ListDashes, Plus } from "phosphor-react";
+import {
+  CaretRight,
+  CircleNotch,
+  Link,
+  ListChecks,
+  ListDashes,
+  Plus,
+} from "phosphor-react";
 import QuickActions from "../../../../components/quickActions/QuickActions";
 import Button from "../../../../components/buttons/button/Button";
 import TaskForm from "../../../../components/taskForm/TaskForm";
 import { motion } from "framer-motion";
+import ProjectForm from "../../../../components/projectForm/ProjectForm";
+import TaskCard from "../../../../components/taskCard/TaskCard";
+import TaskCardLong from "../../../../components/taskCardLong/TaskCardLong";
 
 export default function Tasks() {
   const { darkMode } = useTheme();
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
   const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
   const [showTaskModal, setShowTaskModal] = useState(false);
+  const [showProjectModal, setShowProjectModal] = useState(false);
 
   const fetchData = async () => {
     setMessage({ text: "Loading Tasks & Projects...", type: "loading" });
+    setIsLoading(true);
     const tasksRes = await getTasks();
     setTasks(tasksRes.data);
 
     const projectsRes = await getProjects();
     setProjects(projectsRes.data);
     setMessage({ text: "Tasks & Projects loaded", type: "success" });
+    setIsLoading(false);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleProjectCreated = (newProject) => {
+    setProjects((prev) => [...prev, newProject]);
+    setShowProjectModal(false);
+  };
 
   const handleTaskUpdated = (updatedTask) => {
     setTasks((prev) =>
@@ -57,20 +76,12 @@ export default function Tasks() {
       <section className={darkMode ? "sectionDark" : "sectionLight"}>
         <div className="sectionWrapper">
           <div className="sectionContent">
-            <CardLayout style="cardLayout5">
-              <button
-                className="quickActionsCard"
-                onClick={() => setShowTaskModal(true)}
-              >
-                <div className="quickActionsCardTitle">
-                  <ListDashes size="18" />
-                  <p className="textRegular textXXXS">Create Task</p>
-                </div>
-                <div className="quickActionsPlusIcon">
-                  <Plus />
-                </div>
-              </button>
-            </CardLayout>
+            <QuickActions
+              onClick={(type) => {
+                if (type === "project") setShowProjectModal(true);
+                if (type === "task") setShowTaskModal(true);
+              }}
+            />
           </div>
         </div>
       </section>
@@ -85,23 +96,54 @@ export default function Tasks() {
         />
       )}
 
+      {showProjectModal && (
+        <ProjectForm
+          onProjectCreated={handleProjectCreated}
+          setMessage={setMessage}
+          onClose={() => setShowProjectModal(false)}
+        />
+      )}
+
       <div className="sectionHalf">
         <section className={darkMode ? "sectionDark" : "sectionLight"}>
           <div className="sectionWrapper">
             <div className="sectionContent">
               {/* TASKS TABLE */}
-              <CardSection>
-                <SectionHeader icon={ListChecks} title="ALL TASKS" />
-                {tasks.length === 0 && <p>You have no tasks</p>}
+              <div className="sectionContent" style={{ gap: "1rem" }}>
+                <SectionHeader icon={ListChecks} title="LATEST TASKS" />
+                {isLoading ? (
+                  <div className="loadingIcon">
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{
+                        repeat: Infinity,
+                        ease: "linear",
+                        duration: 1,
+                      }}
+                    >
+                      <CircleNotch />
+                    </motion.div>
+                  </div>
+                ) : tasks.length === 0 ? (
+                  <p>You have no tasks</p>
+                ) : null}
+
                 <CardLayout style="cardLayout1">
-                  <TasksTable
+                  <TaskCardLong
                     projects={projects}
                     tasks={tasks}
                     onTaskUpdated={handleTaskUpdated}
                     onTaskDeleted={handleTaskDeleted}
                   />
                 </CardLayout>
-              </CardSection>
+                {/* CREATE PROJECT BUTTON */}
+                <Button
+                  name="Create Task"
+                  icon={Plus}
+                  style="button buttonType2"
+                  onClick={() => setShowTaskModal(true)}
+                />
+              </div>
             </div>
           </div>
         </section>
