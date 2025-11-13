@@ -58,7 +58,9 @@ export default function TaskCardLong({
 
         return (
           <div key={project.id} className="taskGroupWrapper">
-            <h3 className="projectTitle textBold textS">{project.name}</h3>
+            <h3 className="projectTitle textBold textS">
+              {project.name} Project
+            </h3>
 
             <div className="taskGroupCards">
               {projectTasks.length > 0 ? (
