@@ -8,10 +8,11 @@ import MessageUI from "../../../../components/messageUI/MessageUI";
 import CardSection from "../../../../components/cardSection/CardSection";
 import SectionHeader from "../../../../components/sectionHeader/SectionHeader";
 import CardLayout from "../../../../components/cardLayout/CardLayout";
-import { ListChecks } from "phosphor-react";
+import { ListChecks, ListDashes, Plus } from "phosphor-react";
 import QuickActions from "../../../../components/quickActions/QuickActions";
 import Button from "../../../../components/buttons/button/Button";
 import TaskForm from "../../../../components/taskForm/TaskForm";
+import { motion } from "framer-motion";
 
 export default function Tasks() {
   const { darkMode } = useTheme();
@@ -56,19 +57,20 @@ export default function Tasks() {
       <section className={darkMode ? "sectionDark" : "sectionLight"}>
         <div className="sectionWrapper">
           <div className="sectionContent">
-            <QuickActions />
-          </div>
-        </div>
-      </section>
-
-      <section className={darkMode ? "sectionDark" : "sectionLight"}>
-        <div className="sectionWrapper">
-          <div className="sectionContent">
-            <Button
-              name="Create New Task"
-              style="button buttonType2"
-              onClick={() => setShowTaskModal(true)}
-            />
+            <CardLayout style="cardLayout5">
+              <button
+                className="quickActionsCard"
+                onClick={() => setShowTaskModal(true)}
+              >
+                <div className="quickActionsCardTitle">
+                  <ListDashes size="18" />
+                  <p className="textRegular textXXXS">Create Task</p>
+                </div>
+                <div className="quickActionsPlusIcon">
+                  <Plus />
+                </div>
+              </button>
+            </CardLayout>
           </div>
         </div>
       </section>
@@ -90,6 +92,7 @@ export default function Tasks() {
               {/* TASKS TABLE */}
               <CardSection>
                 <SectionHeader icon={ListChecks} title="ALL TASKS" />
+                {tasks.length === 0 && <p>You have no tasks</p>}
                 <CardLayout style="cardLayout1">
                   <TasksTable
                     projects={projects}

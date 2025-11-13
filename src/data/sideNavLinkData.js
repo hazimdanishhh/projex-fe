@@ -33,7 +33,6 @@ const workspaceSegment = {
   links: [
     { label: "Projects", icon: SquaresFour, path: "workspace/projects" },
     { label: "Tasks", icon: ListDashes, path: "workspace/tasks" },
-    { label: "Documents", icon: Folders, path: "workspace/documents" },
   ],
 };
 

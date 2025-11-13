@@ -4,6 +4,7 @@ import { updateTaskById, deleteTaskById } from "../../api/task.api";
 import Button from "../buttons/button/Button";
 import MessageUI from "../messageUI/MessageUI";
 import "./TaskCard.scss";
+import { PencilSimple, Trash } from "phosphor-react";
 
 export default function TaskCard({
   task,
@@ -102,14 +103,16 @@ export default function TaskCard({
           </div>
         ) : (
           <div className="taskCardContent">
-            <p className={`taskCardStatus ${task.status}`}>
+            <p className={`textLight textXXS taskCardStatus ${task.status}`}>
               ◉ {task.status.replace("_", " ")}
             </p>
-            <p className={`taskCardPriority ${task.priority}`}>
+            <p
+              className={`textLight textXXS taskCardPriority ${task.priority}`}
+            >
               ⚑ {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
             </p>
-            <h4 className="textBold textM">{task.title}</h4>
-            <p className="textRegular textS">{task.description}</p>
+            <h4 className="textBold textS">{task.title}</h4>
+            <p className="textRegular textXS">{task.description}</p>
             <p className="textLight textXS">
               <span className="textLight textXXS">Due: </span>
               {task.dueDate ? task.dueDate.split("T")[0] : "N/A"}
@@ -117,13 +120,13 @@ export default function TaskCard({
             {!dashboard && (
               <div className="taskCardButtons">
                 <Button
-                  name="Edit"
-                  style="button buttonType2"
+                  icon={PencilSimple}
+                  style="button buttonType1"
                   onClick={() => setEditing(true)}
                 />
                 <Button
-                  name="Delete"
-                  style="button buttonType2-1"
+                  icon={Trash}
+                  style="button buttonType1-1"
                   onClick={handleDelete}
                 />
               </div>

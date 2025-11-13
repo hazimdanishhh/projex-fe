@@ -19,7 +19,6 @@ import UserLayout from "./layouts/UserLayout";
 import ThemeProvider from "./context/ThemeContext";
 import Projects from "./pages/user/workspace/projects/Projects";
 import Tasks from "./pages/user/workspace/tasks/Tasks";
-import Documents from "./pages/user/workspace/documents/Documents";
 import Help from "./pages/user/help/Help";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -44,7 +43,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               {/* WORKSPACE */}
               <Route path="/user/workspace/projects" element={<Projects />} />
               <Route path="/user/workspace/tasks" element={<Tasks />} />
-              <Route path="/user/workspace/documents" element={<Documents />} />
 
               {/* HELP */}
               <Route path="/user/help" element={<Help />} />

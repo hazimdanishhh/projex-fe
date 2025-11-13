@@ -3,6 +3,7 @@ import { createTask } from "../../api/task.api";
 import Button from "../buttons/button/Button";
 import "./TaskForm.scss";
 import { useTheme } from "../../context/ThemeContext";
+import { X } from "phosphor-react";
 
 export default function TaskForm({
   projects,
@@ -51,7 +52,9 @@ export default function TaskForm({
     <div
       className={darkMode ? "taskForm sectionDark" : "taskForm sectionLight"}
     >
-      <button onClick={onClose}>Close</button>
+      <button onClick={onClose} className="closeButton">
+        <X size={30} />
+      </button>
       <h2>Create a Task</h2>
       <select
         name="projectId"

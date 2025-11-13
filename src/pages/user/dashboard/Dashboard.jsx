@@ -5,12 +5,15 @@ import { useAuth } from "../../../context/AuthContext";
 import { useTheme } from "../../../context/ThemeContext";
 import QuickActions from "../../../components/quickActions/QuickActions";
 import SectionHeader from "../../../components/sectionHeader/SectionHeader";
-import { CaretRight, Megaphone, SquaresFour } from "phosphor-react";
+import { CaretRight, ListChecks, Megaphone, SquaresFour } from "phosphor-react";
 import CardSection from "../../../components/cardSection/CardSection";
 import CardLayout from "../../../components/cardLayout/CardLayout";
 import { Link } from "react-router";
 import { getProjects } from "../../../api/project.api";
 import ProjectCard from "../../../components/projectCard.jsx/ProjectCard";
+import TasksTable from "../../../components/tasksTable/TasksTable";
+import { getTasks } from "../../../api/task.api";
+import TaskCard from "../../../components/taskCard/TaskCard";
 
 function Dashboard() {
   const { user } = useAuth();
@@ -18,6 +21,7 @@ function Dashboard() {
   const [message, setMessage] = useState({ text: "", type: "" });
   const [showExitTransition, setShowExitTransition] = useState(true);
   const [projects, setProjects] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
   // Page Transition Animation + Message
   useEffect(() => {
@@ -30,16 +34,29 @@ function Dashboard() {
     return () => clearTimeout(timer);
   }, []);
 
-  const fetchProjects = async () => {
-    setMessage({ text: "Loading Projects", type: "loading" });
-    const res = await getProjects();
-    setProjects(res.data);
-    setMessage({ text: "Projects loaded", type: "success" });
+  const fetchData = async () => {
+    setMessage({ text: "Loading Tasks & Projects...", type: "loading" });
+    const tasksRes = await getTasks();
+    setTasks(tasksRes.data);
+
+    const projectsRes = await getProjects();
+    setProjects(projectsRes.data);
+    setMessage({ text: "Tasks & Projects loaded", type: "success" });
   };
 
   useEffect(() => {
-    fetchProjects();
+    fetchData();
   }, []);
+
+  const handleTaskUpdated = (updatedTask) => {
+    setTasks((prev) =>
+      prev.map((t) => (t.id === updatedTask.id ? updatedTask : t))
+    );
+  };
+
+  const handleTaskDeleted = (id) => {
+    setTasks((prev) => prev.filter((t) => t.id !== id));
+  };
 
   return (
     <>
@@ -59,6 +76,7 @@ function Dashboard() {
           <div className="sectionContent">
             <CardSection>
               <SectionHeader icon={SquaresFour} title="LATEST PROJECTS" />
+              {projects.length === 0 && <p>You have no projects</p>}
               <CardLayout style="cardLayout1">
                 {projects
                   .slice() // create a shallow copy so we don't mutate the original
@@ -67,25 +85,51 @@ function Dashboard() {
                   .map((project) => (
                     <ProjectCard key={project.id} project={project} dashboard />
                   ))}
-                <Link
-                  to="/user/workspace/projects"
-                  className="button buttonType2"
-                >
-                  View All
-                  <CaretRight weight="bold" />
-                </Link>
               </CardLayout>
+              <Link
+                to="/user/workspace/projects"
+                className="button buttonType2"
+              >
+                View All
+                <CaretRight weight="bold" />
+              </Link>
             </CardSection>
           </div>
         </div>
       </section>
-      <section className={darkMode ? "sectionDark" : "sectionLight"}>
-        <div className="sectionWrapper">
-          <div className="sectionContent">
-            <SectionHeader icon={Megaphone} title="LATEST ANNOUNCEMENTS" />
+      <div className="sectionHalf">
+        <section className={darkMode ? "sectionDark" : "sectionLight"}>
+          <div className="sectionWrapper">
+            <div className="sectionContent">
+              {/* TASKS TABLE */}
+              <CardSection>
+                <SectionHeader icon={ListChecks} title="LATEST TASKS" />
+                {tasks.length === 0 && <p>You have no tasks</p>}
+                <CardLayout style="cardLayout2">
+                  {tasks
+                    .slice()
+                    .sort(
+                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                    )
+                    .slice(0, 7)
+                    .map((task) => (
+                      <TaskCard
+                        key={task.id}
+                        task={task}
+                        onTaskUpdated={handleTaskUpdated}
+                        onTaskDeleted={handleTaskDeleted}
+                      />
+                    ))}
+                </CardLayout>
+                <Link to="/user/workspace/tasks" className="button buttonType2">
+                  View All
+                  <CaretRight weight="bold" />
+                </Link>
+              </CardSection>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 }

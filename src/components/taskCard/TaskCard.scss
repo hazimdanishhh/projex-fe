@@ -11,6 +11,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    text-align: start;
 
     .taskCardStatus {
       align-self: flex-start;
@@ -68,6 +69,5 @@
   .taskCardButtons {
     display: flex;
     gap: 10px;
-    flex-wrap: wrap;
   }
 }

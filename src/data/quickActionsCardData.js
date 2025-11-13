@@ -11,9 +11,9 @@ export const quickActionsHome = [
     name: "Create Task",
     path: "/user/workspace/tasks",
   },
-  {
-    icon: Folders,
-    name: "Add Document",
-    path: "/user/workspace/documents",
-  },
+  // {
+  //   icon: Folders,
+  //   name: "Add Document",
+  //   path: "/user/workspace/documents",
+  // },
 ];

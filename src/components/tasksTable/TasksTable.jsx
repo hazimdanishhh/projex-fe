@@ -4,6 +4,7 @@ import { updateTaskById, deleteTaskById } from "../../api/task.api";
 import Button from "../buttons/button/Button";
 import MessageUI from "../messageUI/MessageUI";
 import "./TasksTable.scss";
+import { PencilSimple, Trash } from "phosphor-react";
 
 export default function TasksTable({
   projects,
@@ -81,7 +82,7 @@ export default function TasksTable({
                           />
                         </td>
                         <td>
-                          <input
+                          <textarea
                             name="description"
                             value={formData.description}
                             onChange={handleChange}
@@ -148,14 +149,14 @@ export default function TasksTable({
                         <td>
                           {task.dueDate ? task.dueDate.split("T")[0] : "N/A"}
                         </td>
-                        <td>
+                        <td className="taskTableButtons">
                           <Button
-                            name="Edit"
+                            icon={PencilSimple}
                             style="button buttonType2"
                             onClick={() => handleEditClick(task)}
                           />
                           <Button
-                            name="Delete"
+                            icon={Trash}
                             style="button buttonType2-1"
                             onClick={() => handleDelete(task.id)}
                           />

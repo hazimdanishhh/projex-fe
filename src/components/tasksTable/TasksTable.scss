@@ -84,5 +84,9 @@
         border: 1px solid $error300;
       }
     }
+
+    .taskTableButtons {
+      display: flex;
+    }
   }
 }
