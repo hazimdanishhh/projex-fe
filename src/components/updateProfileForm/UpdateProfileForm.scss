@@ -1,0 +1,78 @@
+// src/components/updateProfileForm/UpdateProfileForm.scss
+
+.formContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgb($neutral900, 0.3);
+  text-align: start;
+
+  label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    display: block;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid $neutral300;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $primary600;
+      box-shadow: 0 0 0 2px rgba($primary600, 0.2);
+    }
+
+    &::placeholder {
+      color: $neutral500;
+    }
+  }
+
+  button {
+    padding: 0.55rem 1rem;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    &:not(.deleteButton) {
+      background-color: $primary600;
+      color: $neutral100;
+
+      &:hover {
+        background-color: $primary500;
+      }
+    }
+  }
+
+  .deleteButton {
+    background-color: $error500;
+    color: $neutral100;
+    margin-top: 0.5rem;
+
+    &:hover {
+      background-color: $error600;
+    }
+  }
+
+  .buttonGroup {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+}

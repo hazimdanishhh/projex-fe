@@ -1,3 +1,4 @@
+// src/pages/user/Profile.jsx
 import { useState } from "react";
 import MessageUI from "../../../components/messageUI/MessageUI";
 import ProfileCard, {
@@ -5,13 +6,14 @@ import ProfileCard, {
 } from "../../../components/profileCard/ProfileCard";
 import { useTheme } from "../../../context/ThemeContext";
 import useUserProfile from "../../../hooks/useUserProfile";
-import UpdateProfileAsAdminForm from "../../../components/updateProfileAsAdminForm/UpdateProfileAsAdminForm";
+import UpdateProfileForm from "../../../components/updateProfileForm/UpdateProfileForm";
+import Button from "../../../components/buttons/button/Button";
 
 export default function Profile() {
   const [message, setMessage] = useState({ text: "", type: "" });
   const [isEditing, setIsEditing] = useState(false);
 
-  const { darkMode, toggleMode } = useTheme();
+  const { darkMode } = useTheme();
   const { profile, loading } = useUserProfile({ setMessage });
 
   return (
@@ -24,13 +26,26 @@ export default function Profile() {
             <h1 className="textRegular textL">Your Profile</h1>
 
             {loading ? (
-              // Loading Card UI
               <ProfileCardLoading />
             ) : profile ? (
-              // Profile Card UI
-              <ProfileCard profile={profile} />
+              <>
+                <ProfileCard profile={profile} />
+
+                {!isEditing ? (
+                  <Button
+                    name="Edit Profile"
+                    style="button buttonType2"
+                    onClick={() => setIsEditing(true)}
+                  />
+                ) : (
+                  <UpdateProfileForm
+                    profile={profile}
+                    setIsEditing={setIsEditing}
+                    setMessage={setMessage}
+                  />
+                )}
+              </>
             ) : (
-              // No Profile UI
               <p>No profile data found.</p>
             )}
           </div>

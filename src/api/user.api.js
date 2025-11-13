@@ -13,6 +13,12 @@ export const updateCurrentUser = async (payload) => {
   return res.data;
 };
 
+// USERS: Delete User by ID
+export const deleteCurrentUser = async () => {
+  const res = await axios.delete("/users/me");
+  return res.data;
+};
+
 // ADMIN ONLY: Get User by ID
 export const getUserById = async (id) => {
   const res = await axios.get(`/users/${id}`);
