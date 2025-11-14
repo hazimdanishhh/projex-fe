@@ -1,3 +1,4 @@
+import "./Dashboard.scss";
 import { useEffect, useState } from "react";
 import MessageUI from "../../../components/messageUI/MessageUI";
 import PageTransition from "../../../components/pageTransition/PageTransition";
@@ -7,8 +8,12 @@ import QuickActions from "../../../components/quickActions/QuickActions";
 import SectionHeader from "../../../components/sectionHeader/SectionHeader";
 import {
   CaretRight,
+  ChartBar,
+  Check,
   CircleNotch,
+  Hourglass,
   ListChecks,
+  ListDashes,
   Megaphone,
   SquaresFour,
 } from "phosphor-react";
@@ -35,6 +40,19 @@ function Dashboard() {
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [tasksIsLoading, setTasksIsLoading] = useState(false);
   const [projectsIsLoading, setProjectsIsLoading] = useState(false);
+
+  // Dashboard Stats
+  const totalProjects = projects.length;
+  const activeProjects = projects.filter((p) => p.status === "active").length;
+  const completedProjects = projects.filter(
+    (p) => p.status === "completed"
+  ).length;
+
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter((t) => t.status === "completed").length;
+  const inProgressTasks = tasks.filter(
+    (t) => t.status === "in_progress"
+  ).length;
 
   // Page Transition Animation + Message
   useEffect(() => {
@@ -131,6 +149,146 @@ function Dashboard() {
         />
       )}
 
+      {/* ANALYTICS DASHBOARD */}
+      <section className={darkMode ? "sectionDark" : "sectionLight"}>
+        <div className="sectionWrapper">
+          <div className="sectionContent">
+            <CardSection>
+              <SectionHeader icon={ChartBar} title="DASHBOARD OVERVIEW" />
+
+              {/* PROJECTS SUMMARY */}
+              <CardLayout style="cardLayout1">
+                {/* ⭐ Combined Project Status Bar */}
+                <div className="analyticsCard">
+                  <h3>Project Status Overview</h3>
+
+                  <div className="statusBar">
+                    <div
+                      className="statusSegment completed"
+                      style={{
+                        width: `${
+                          (completedProjects / totalProjects) * 100 || 0
+                        }%`,
+                      }}
+                    />
+                    <div
+                      className="statusSegment active"
+                      style={{
+                        width: `${
+                          (activeProjects / totalProjects) * 100 || 0
+                        }%`,
+                      }}
+                    />
+                  </div>
+
+                  <div className="statusLabels">
+                    <span className="completed">
+                      Completed: {completedProjects}
+                    </span>
+                    <span className="active">Active: {activeProjects}</span>
+                  </div>
+                </div>
+              </CardLayout>
+
+              <CardLayout style="cardLayout3">
+                {/* Total Projects */}
+                <Link className="analyticsCard" to="/user/workspace/projects">
+                  <div className="analyticsCardTitle">
+                    <SquaresFour size={24} />
+                    <h3 className="textRegular textS">Total Projects</h3>
+                  </div>
+                  <p className="analyticsNumber">{totalProjects}</p>
+                </Link>
+
+                {/* Completed */}
+                <Link className="analyticsCard" to="/user/workspace/projects">
+                  <div className="analyticsCardTitle">
+                    <Check size={24} />
+                    <h3 className="textRegular textS">Completed Projects</h3>
+                  </div>
+
+                  <p className="analyticsNumber">{completedProjects}</p>
+                </Link>
+
+                {/* Active */}
+                <Link className="analyticsCard" to="/user/workspace/projects">
+                  <div className="analyticsCardTitle">
+                    <Hourglass size={24} />
+                    <h3 className="textRegular textS">Active Projects</h3>
+                  </div>
+
+                  <p className="analyticsNumber">{activeProjects}</p>
+                </Link>
+              </CardLayout>
+
+              <CardLayout style="cardLayout1">
+                {/* ⭐ Combined Task Status */}
+                <div className="analyticsCard">
+                  <h3>Task Status Overview</h3>
+
+                  <div className="statusBar">
+                    <div
+                      className="statusSegment completed"
+                      style={{
+                        width: `${(completedTasks / totalTasks) * 100 || 0}%`,
+                      }}
+                    />
+                    <div
+                      className="statusSegment progress"
+                      style={{
+                        width: `${(inProgressTasks / totalTasks) * 100 || 0}%`,
+                      }}
+                    />
+                  </div>
+
+                  <div className="statusLabels">
+                    <span className="completed">
+                      Completed: {completedTasks}
+                    </span>
+                    <span className="progress">
+                      In Progress: {inProgressTasks}
+                    </span>
+                  </div>
+                </div>
+              </CardLayout>
+
+              {/* TASKS SUMMARY */}
+              <CardLayout style="cardLayout3">
+                {/* Total Tasks */}
+                <Link className="analyticsCard" to="/user/workspace/tasks">
+                  <div className="analyticsCardTitle">
+                    <ListDashes size={24} />
+                    <h3 className="textRegular textS">Total Tasks</h3>
+                  </div>
+
+                  <p className="analyticsNumber">{totalTasks}</p>
+                </Link>
+
+                {/* Completed */}
+                <Link className="analyticsCard" to="/user/workspace/tasks">
+                  <div className="analyticsCardTitle">
+                    <Check size={24} />
+                    <h3 className="textRegular textS">Completed Tasks</h3>
+                  </div>
+
+                  <p className="analyticsNumber">{completedTasks}</p>
+                </Link>
+
+                {/* In Progress */}
+                <Link className="analyticsCard" to="/user/workspace/tasks">
+                  <div className="analyticsCardTitle">
+                    <Hourglass size={24} />
+                    <h3 className="textRegular textS">Tasks In Progress</h3>
+                  </div>
+
+                  <p className="analyticsNumber">{inProgressTasks}</p>
+                </Link>
+              </CardLayout>
+            </CardSection>
+          </div>
+        </div>
+      </section>
+
       <section className={darkMode ? "sectionDark" : "sectionLight"}>
         <div className="sectionWrapper">
           <div className="sectionContent">
@@ -173,6 +331,7 @@ function Dashboard() {
           </div>
         </div>
       </section>
+
       <div className="sectionHalf">
         <section className={darkMode ? "sectionDark" : "sectionLight"}>
           <div className="sectionWrapper">

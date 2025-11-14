@@ -1,0 +1,97 @@
+.analyticsCard {
+  padding: 1.5rem;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.7rem;
+  box-shadow: 0 2px 6px rgba($neutral900, 0.05);
+  transition: 0.2s ease;
+  border: 1px solid rgba($neutral500, 0.5);
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba($neutral900, 0.08);
+  }
+
+  .analyticsCardTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .analyticsNumber {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .analyticsLabel {
+    font-size: 0.85rem;
+  }
+
+  // Status bar container
+  .statusBar {
+    width: 100%;
+    height: 14px;
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 0.6rem;
+    background: rgba($neutral400, 0.2);
+  }
+
+  // Each segment inside the status bar
+  .statusSegment {
+    height: 100%;
+    transition: width 0.4s ease;
+
+    &.completed {
+      background: $success500;
+    }
+    &.active {
+      background: $info500;
+    }
+    &.progress {
+      background: $warning500;
+    }
+  }
+
+  // Labels below the status bar
+  .statusLabels {
+    width: 100%;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.4rem;
+    opacity: 0.8;
+    flex-wrap: wrap;
+
+    // Add color circle next to each label
+    span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+
+      &::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+        background: currentColor; // inherits color from the span
+      }
+
+      &.completed {
+        color: $success500;
+      }
+      &.active {
+        color: $info600;
+      }
+      &.progress {
+        color: $warning500;
+      }
+    }
+  }
+}

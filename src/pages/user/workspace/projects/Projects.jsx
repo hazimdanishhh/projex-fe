@@ -6,12 +6,21 @@ import MessageUI from "../../../../components/messageUI/MessageUI";
 import CardSection from "../../../../components/cardSection/CardSection";
 import SectionHeader from "../../../../components/sectionHeader/SectionHeader";
 import CardLayout from "../../../../components/cardLayout/CardLayout";
-import { CircleNotch, Plus, SquaresFour } from "phosphor-react";
+import {
+  ChartBar,
+  Check,
+  CircleNotch,
+  Hourglass,
+  Megaphone,
+  Plus,
+  SquaresFour,
+} from "phosphor-react";
 import QuickActions from "../../../../components/quickActions/QuickActions";
 import Button from "../../../../components/buttons/button/Button";
 import ProjectForm from "../../../../components/projectForm/ProjectForm";
 import TaskForm from "../../../../components/taskForm/TaskForm";
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 
 export default function Projects() {
   const { darkMode } = useTheme();
@@ -20,6 +29,13 @@ export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [showProjectModal, setShowProjectModal] = useState(false);
   const [showTaskModal, setShowTaskModal] = useState(false);
+
+  // Dashboard Stats
+  const totalProjects = projects.length;
+  const activeProjects = projects.filter((p) => p.status === "active").length;
+  const completedProjects = projects.filter(
+    (p) => p.status === "completed"
+  ).length;
 
   const fetchProjects = async () => {
     setMessage({ text: "Loading Projects", type: "loading" });
@@ -88,6 +104,80 @@ export default function Projects() {
           onClose={() => setShowTaskModal(false)}
         />
       )}
+
+      {/* ANALYTICS DASHBOARD */}
+      <section className={darkMode ? "sectionDark" : "sectionLight"}>
+        <div className="sectionWrapper">
+          <div className="sectionContent">
+            <CardSection>
+              <SectionHeader icon={ChartBar} title="PROJECTS OVERVIEW" />
+
+              {/* PROJECTS SUMMARY */}
+              <CardLayout style="cardLayout1">
+                {/* ⭐ Combined Project Status Bar */}
+                <div className="analyticsCard">
+                  <div className="statusBar">
+                    <div
+                      className="statusSegment completed"
+                      style={{
+                        width: `${
+                          (completedProjects / totalProjects) * 100 || 0
+                        }%`,
+                      }}
+                    />
+                    <div
+                      className="statusSegment active"
+                      style={{
+                        width: `${
+                          (activeProjects / totalProjects) * 100 || 0
+                        }%`,
+                      }}
+                    />
+                  </div>
+
+                  <div className="statusLabels">
+                    <span className="completed">
+                      Completed: {completedProjects}
+                    </span>
+                    <span className="active">Active: {activeProjects}</span>
+                  </div>
+                </div>
+              </CardLayout>
+
+              <CardLayout style="cardLayout3">
+                {/* Total Projects */}
+                <div className="analyticsCard">
+                  <div className="analyticsCardTitle">
+                    <SquaresFour size={24} />
+                    <h3 className="textRegular textS">Total Projects</h3>
+                  </div>
+                  <p className="analyticsNumber">{totalProjects}</p>
+                </div>
+
+                {/* Completed */}
+                <div className="analyticsCard">
+                  <div className="analyticsCardTitle">
+                    <Check size={24} />
+                    <h3 className="textRegular textS">Completed Projects</h3>
+                  </div>
+
+                  <p className="analyticsNumber">{completedProjects}</p>
+                </div>
+
+                {/* Active */}
+                <div className="analyticsCard">
+                  <div className="analyticsCardTitle">
+                    <Hourglass size={24} />
+                    <h3 className="textRegular textS">Active Projects</h3>
+                  </div>
+
+                  <p className="analyticsNumber">{activeProjects}</p>
+                </div>
+              </CardLayout>
+            </CardSection>
+          </div>
+        </div>
+      </section>
 
       <div className="sectionHalf">
         <section className={darkMode ? "sectionDark" : "sectionLight"}>

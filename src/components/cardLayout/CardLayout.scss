@@ -5,6 +5,27 @@
   width: 100%;
 }
 
+.cardLayout4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  width: 100%;
+
+  @media screen and (max-width: 1024px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    width: 100%;
+  }
+}
+
 .cardLayout3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

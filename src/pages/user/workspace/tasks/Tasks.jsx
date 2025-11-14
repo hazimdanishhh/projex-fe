@@ -10,10 +10,13 @@ import SectionHeader from "../../../../components/sectionHeader/SectionHeader";
 import CardLayout from "../../../../components/cardLayout/CardLayout";
 import {
   CaretRight,
+  ChartBar,
+  Check,
   CircleNotch,
-  Link,
+  Hourglass,
   ListChecks,
   ListDashes,
+  Megaphone,
   Plus,
 } from "phosphor-react";
 import QuickActions from "../../../../components/quickActions/QuickActions";
@@ -23,6 +26,7 @@ import { motion } from "framer-motion";
 import ProjectForm from "../../../../components/projectForm/ProjectForm";
 import TaskCard from "../../../../components/taskCard/TaskCard";
 import TaskCardLong from "../../../../components/taskCardLong/TaskCardLong";
+import { Link } from "react-router";
 
 export default function Tasks() {
   const { darkMode } = useTheme();
@@ -32,6 +36,13 @@ export default function Tasks() {
   const [projects, setProjects] = useState([]);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [showProjectModal, setShowProjectModal] = useState(false);
+
+  // Dashboard Analytics
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter((t) => t.status === "completed").length;
+  const inProgressTasks = tasks.filter(
+    (t) => t.status === "in_progress"
+  ).length;
 
   const fetchData = async () => {
     setMessage({ text: "Loading Tasks & Projects...", type: "loading" });
@@ -103,6 +114,79 @@ export default function Tasks() {
           onClose={() => setShowProjectModal(false)}
         />
       )}
+
+      {/* ANALYTICS DASHBOARD */}
+      <section className={darkMode ? "sectionDark" : "sectionLight"}>
+        <div className="sectionWrapper">
+          <div className="sectionContent">
+            <CardSection>
+              <SectionHeader icon={ChartBar} title="TASKS OVERVIEW" />
+
+              <CardLayout style="cardLayout1">
+                {/* ⭐ Combined Task Status */}
+                <div className="analyticsCard">
+                  <div className="statusBar">
+                    <div
+                      className="statusSegment completed"
+                      style={{
+                        width: `${(completedTasks / totalTasks) * 100 || 0}%`,
+                      }}
+                    />
+                    <div
+                      className="statusSegment progress"
+                      style={{
+                        width: `${(inProgressTasks / totalTasks) * 100 || 0}%`,
+                      }}
+                    />
+                  </div>
+
+                  <div className="statusLabels">
+                    <span className="completed">
+                      Completed: {completedTasks}
+                    </span>
+                    <span className="progress">
+                      In Progress: {inProgressTasks}
+                    </span>
+                  </div>
+                </div>
+              </CardLayout>
+
+              {/* TASKS SUMMARY */}
+              <CardLayout style="cardLayout3">
+                {/* Total Tasks */}
+                <div className="analyticsCard">
+                  <div className="analyticsCardTitle">
+                    <ListDashes size={24} />
+                    <h3 className="textRegular textS">Total Tasks</h3>
+                  </div>
+
+                  <p className="analyticsNumber">{totalTasks}</p>
+                </div>
+
+                {/* Completed */}
+                <div className="analyticsCard">
+                  <div className="analyticsCardTitle">
+                    <Check size={24} />
+                    <h3 className="textRegular textS">Completed Tasks</h3>
+                  </div>
+
+                  <p className="analyticsNumber">{completedTasks}</p>
+                </div>
+
+                {/* In Progress */}
+                <div className="analyticsCard">
+                  <div className="analyticsCardTitle">
+                    <Hourglass size={24} />
+                    <h3 className="textRegular textS">Tasks In Progress</h3>
+                  </div>
+
+                  <p className="analyticsNumber">{inProgressTasks}</p>
+                </div>
+              </CardLayout>
+            </CardSection>
+          </div>
+        </div>
+      </section>
 
       <div className="sectionHalf">
         <section className={darkMode ? "sectionDark" : "sectionLight"}>
