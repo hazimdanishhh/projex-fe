@@ -1,3 +1,4 @@
+import "./CreateUserForm.scss";
 import { useState } from "react";
 import { createUserAsAdmin } from "../../api/admin.api";
 import { useTheme } from "../../context/ThemeContext";
@@ -78,6 +79,8 @@ function CreateUserForm({ setMessage }) {
       onSubmit={handleSubmit}
       className={darkMode ? "userForm sectionDark" : "userForm sectionLight"}
     >
+      <h2>Create New User</h2>
+
       <label htmlFor="name">Name</label>
       <input
         id="name"
@@ -128,7 +131,9 @@ function CreateUserForm({ setMessage }) {
         <option value="admin">Admin</option>
       </select>
 
-      <button type="submit">Create User</button>
+      <button type="submit" className="button buttonType2">
+        Create User
+      </button>
     </form>
   );
 }

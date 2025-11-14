@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
 import MessageUI from "../../../components/messageUI/MessageUI";
 import { fetchAllUsers } from "../../../api/admin.api";
+import { useTheme } from "../../../context/ThemeContext";
+import SectionHeader from "../../../components/sectionHeader/SectionHeader";
+import CardLayout from "../../../components/cardLayout/CardLayout";
+import CardSection from "../../../components/cardSection/CardSection";
+import { Users } from "phosphor-react";
+import AdminUserCard from "../../../components/adminUserCard/AdminUserCard";
 
 function AdminUsers() {
   const [message, setMessage] = useState({ text: "", type: "" });
   const [users, setUsers] = useState([]);
+  const { darkMode, toggleMode } = useTheme();
+  const [usersIsLoading, setUsersIsLoading] = useState(false);
 
   //   Get All Users on page load
   useEffect(() => {
@@ -25,30 +33,49 @@ function AdminUsers() {
   return (
     <>
       <MessageUI message={message} setMessage={setMessage} />
-      <section>
-        <h1>Admin - All Users</h1>
-        {users.length === 0 ? (
-          <p>No users found.</p>
-        ) : (
-          <table border="1" cellPadding="8" style={{ marginTop: "1rem" }}>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.role}</td>
-                </tr>
+      <section className={darkMode ? "sectionDark" : "sectionLight"}>
+        <div className="sectionWrapper">
+          <div className="sectionContent" style={{ gap: "10px" }}>
+            <SectionHeader icon={Users} title="USERS" />
+            {usersIsLoading ? (
+              <div className="loadingIcon">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{
+                    repeat: Infinity,
+                    ease: "linear",
+                    duration: 1,
+                  }}
+                >
+                  <CircleNotch />
+                </motion.div>
+              </div>
+            ) : users.length === 0 ? (
+              <p>There are no users available</p>
+            ) : null}
+
+            <CardLayout>
+              {users.map((u) => (
+                <AdminUserCard
+                  key={u.id}
+                  user={u}
+                  onUserUpdated={(updatedUser) =>
+                    setUsers((prev) =>
+                      prev.map((usr) =>
+                        usr.id === updatedUser.id ? updatedUser : usr
+                      )
+                    )
+                  }
+                  onUserDeleted={(deletedUserId) =>
+                    setUsers((prev) =>
+                      prev.filter((usr) => usr.id !== deletedUserId)
+                    )
+                  }
+                />
               ))}
-            </tbody>
-          </table>
-        )}
+            </CardLayout>
+          </div>
+        </div>
       </section>
     </>
   );

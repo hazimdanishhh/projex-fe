@@ -48,7 +48,7 @@ const adminSegment = {
   links: [
     { label: "Dashboard", icon: House, path: "dashboard" },
     { label: "Admin Profile", icon: UserCircle, path: "profile" },
-    // { label: "All Users", icon: Users, path: "users" },
+    { label: "All Users", icon: Users, path: "users" },
     { label: "Create User", icon: UserPlus, path: "create-user" },
   ],
 };

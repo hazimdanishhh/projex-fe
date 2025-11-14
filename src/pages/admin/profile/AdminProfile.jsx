@@ -40,7 +40,7 @@ export default function Profile() {
                 onClick={() => {
                   setIsEditing(true);
                 }}
-                className="editProfileButton"
+                className="button buttonType2"
               >
                 Edit Profile
               </button>

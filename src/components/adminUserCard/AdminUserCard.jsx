@@ -5,6 +5,7 @@ import MessageUI from "../messageUI/MessageUI";
 import { PencilSimple, Check, X, Trash } from "phosphor-react";
 import "./AdminUserCard.scss";
 import { deleteUserById } from "../../api/user.api";
+import CardLayout from "../cardLayout/CardLayout";
 
 export default function AdminUserCard({ user, onUserUpdated, onUserDeleted }) {
   const [editing, setEditing] = useState(false);
@@ -13,6 +14,7 @@ export default function AdminUserCard({ user, onUserUpdated, onUserDeleted }) {
     username: user.username || "",
     email: user.email,
     role: user.role,
+    status: user.status,
   });
   const [message, setMessage] = useState({ text: "", type: "" });
 
@@ -65,6 +67,7 @@ export default function AdminUserCard({ user, onUserUpdated, onUserDeleted }) {
 
       {editing ? (
         <div className="userForm">
+          <label htmlFor="name">Name</label>
           <input
             type="text"
             name="name"
@@ -72,6 +75,7 @@ export default function AdminUserCard({ user, onUserUpdated, onUserDeleted }) {
             onChange={handleChange}
             placeholder="Name"
           />
+          <label htmlFor="username">Username</label>
           <input
             type="text"
             name="username"
@@ -79,6 +83,7 @@ export default function AdminUserCard({ user, onUserUpdated, onUserDeleted }) {
             onChange={handleChange}
             placeholder="Username"
           />
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             name="email"
@@ -86,9 +91,16 @@ export default function AdminUserCard({ user, onUserUpdated, onUserDeleted }) {
             onChange={handleChange}
             placeholder="Email"
           />
+          <label htmlFor="role">Role</label>
           <select name="role" value={formData.role} onChange={handleChange}>
             <option value="user">User</option>
             <option value="admin">Admin</option>
+          </select>
+          <label htmlFor="status">Status</label>
+          <select name="status" value={formData.status} onChange={handleChange}>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="suspended">Suspended</option>
           </select>
           <div className="buttons">
             <Button
@@ -107,19 +119,73 @@ export default function AdminUserCard({ user, onUserUpdated, onUserDeleted }) {
         </div>
       ) : (
         <div className="userDetails">
-          <p>{user.name}</p>
-          <p>{user.username || "-"}</p>
-          <p>{user.email}</p>
-          <p>{user.role}</p>
+          <CardLayout style="cardLayout1">
+            <p className="textS textBold userDetailsHeading">
+              Name: {user.name}
+            </p>
+            <p className="textS textBold userDetailsHeading">
+              Username: {user.username || "-"}
+            </p>
+          </CardLayout>
+          <CardLayout style="cardLayout4">
+            <p className="textXXS">
+              <span className="textRegular textS">ID</span>
+              {user.id}
+            </p>
+
+            <p className="textXXS">
+              <span className="textRegular textS">Email</span>
+              {user.email}
+            </p>
+            <p className="textXXS">
+              <span className="textRegular textS">Role</span>
+              {user.role}
+            </p>
+            <p className="textXXS">
+              <span className="textRegular textS">Status</span>
+              {user.status}
+            </p>
+          </CardLayout>
+          <CardLayout style="cardLayout3">
+            <p className="textXXS userDetailsDate">
+              <span className="textRegular textS">Last Login:</span>{" "}
+              {user.lastLoginAt
+                ? new Date(user.lastLoginAt).toLocaleString("en-MY", {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  })
+                : "Never"}
+            </p>
+
+            <p className="textXXS userDetailsDate">
+              <span className="textRegular textS">Created At:</span>{" "}
+              {user.createdAt
+                ? new Date(user.createdAt).toLocaleString("en-MY", {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  })
+                : "N/A"}
+            </p>
+
+            <p className="textXXS userDetailsDate">
+              <span className="textRegular textS">Updated At:</span>{" "}
+              {user.updatedAt
+                ? new Date(user.updatedAt).toLocaleString("en-MY", {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  })
+                : "N/A"}
+            </p>
+          </CardLayout>
           <div className="buttons">
             <Button
               icon={PencilSimple}
-              style="button buttonType1"
+              style="button buttonType2"
               onClick={() => setEditing(true)}
             />
             <Button
               icon={Trash}
-              style="button buttonType1-1"
+              style="button buttonType2-1"
               onClick={handleDelete}
             />
           </div>

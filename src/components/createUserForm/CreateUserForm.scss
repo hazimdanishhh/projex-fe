@@ -1,0 +1,16 @@
+.userForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: start;
+
+  .closeButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 1px solid $neutral600;
+    padding: 0.5rem;
+    width: fit-content;
+  }
+}

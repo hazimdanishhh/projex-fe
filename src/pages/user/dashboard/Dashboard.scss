@@ -59,6 +59,12 @@
     &.progress {
       background: $warning500;
     }
+    &.inactive {
+      background: $warning500;
+    }
+    &.suspended {
+      background: $error400;
+    }
   }
 
   // Labels below the status bar
@@ -94,6 +100,12 @@
       }
       &.progress {
         color: $warning500;
+      }
+      &.inactive {
+        color: $warning500;
+      }
+      &.suspended {
+        color: $error400;
       }
     }
   }

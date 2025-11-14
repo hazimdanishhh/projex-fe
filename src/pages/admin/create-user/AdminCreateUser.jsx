@@ -25,7 +25,6 @@ export default function AdminCreateUser() {
       <section className={darkMode ? "sectionDark" : "sectionLight"}>
         <div className="sectionWrapper">
           <div className="sectionContent">
-            <h1>Admin - Create New User</h1>
             <CreateUserForm setMessage={setMessage} />
           </div>
         </div>

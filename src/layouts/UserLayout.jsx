@@ -6,7 +6,7 @@ import SideNav from "../components/sideNav/SideNav";
 
 export default function UserLayout() {
   return (
-    <ProtectedRoute>
+    <ProtectedRoute allowedRoles={["user"]}>
       <div className="content">
         <SideNav />
 
