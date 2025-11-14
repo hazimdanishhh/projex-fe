@@ -15,6 +15,13 @@
     box-shadow: 0 4px 12px rgba($neutral900, 0.08);
   }
 
+  &.analyticsCard2 {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
   .analyticsCardTitle {
     display: flex;
     justify-content: center;
@@ -23,12 +30,8 @@
   }
 
   .analyticsNumber {
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: 700;
-  }
-
-  .analyticsLabel {
-    font-size: 0.85rem;
   }
 
   // Status bar container

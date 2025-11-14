@@ -157,133 +157,160 @@ function Dashboard() {
               <SectionHeader icon={ChartBar} title="DASHBOARD OVERVIEW" />
 
               {/* PROJECTS SUMMARY */}
-              <CardLayout style="cardLayout1">
-                {/* ⭐ Combined Project Status Bar */}
-                <div className="analyticsCard">
-                  <h3>Project Status Overview</h3>
+              <CardSection>
+                <CardLayout style="cardLayout1">
+                  {/* ⭐ Combined Project Status Bar */}
+                  <div className="analyticsCard">
+                    <h3 className="textM">Project Status Overview</h3>
 
-                  <div className="statusBar">
-                    <div
-                      className="statusSegment completed"
-                      style={{
-                        width: `${
-                          (completedProjects / totalProjects) * 100 || 0
-                        }%`,
-                      }}
-                    />
-                    <div
-                      className="statusSegment active"
-                      style={{
-                        width: `${
-                          (activeProjects / totalProjects) * 100 || 0
-                        }%`,
-                      }}
-                    />
+                    <div className="statusBar">
+                      <div
+                        className="statusSegment completed"
+                        style={{
+                          width: `${
+                            (completedProjects / totalProjects) * 100 || 0
+                          }%`,
+                        }}
+                      />
+                      <div
+                        className="statusSegment active"
+                        style={{
+                          width: `${
+                            (activeProjects / totalProjects) * 100 || 0
+                          }%`,
+                        }}
+                      />
+                    </div>
+
+                    <div className="statusLabels">
+                      <span className="completed">
+                        Completed: {completedProjects}
+                      </span>
+                      <span className="active">Active: {activeProjects}</span>
+                    </div>
                   </div>
+                </CardLayout>
 
-                  <div className="statusLabels">
-                    <span className="completed">
-                      Completed: {completedProjects}
-                    </span>
-                    <span className="active">Active: {activeProjects}</span>
-                  </div>
-                </div>
-              </CardLayout>
+                <CardLayout style="cardLayout3">
+                  {/* Total Projects */}
+                  <Link
+                    className="analyticsCard analyticsCard2"
+                    to="/user/workspace/projects"
+                  >
+                    <div className="analyticsCardTitle">
+                      <SquaresFour size={16} />
+                      <h3 className="textRegular textXXS">Total Projects</h3>
+                    </div>
+                    <p className="analyticsNumber">{totalProjects}</p>
+                  </Link>
 
-              <CardLayout style="cardLayout3">
-                {/* Total Projects */}
-                <Link className="analyticsCard" to="/user/workspace/projects">
-                  <div className="analyticsCardTitle">
-                    <SquaresFour size={24} />
-                    <h3 className="textRegular textS">Total Projects</h3>
-                  </div>
-                  <p className="analyticsNumber">{totalProjects}</p>
-                </Link>
+                  {/* Completed */}
+                  <Link
+                    className="analyticsCard analyticsCard2"
+                    to="/user/workspace/projects"
+                  >
+                    <div className="analyticsCardTitle">
+                      <Check size={16} />
+                      <h3 className="textRegular textXXS">
+                        Completed Projects
+                      </h3>
+                    </div>
 
-                {/* Completed */}
-                <Link className="analyticsCard" to="/user/workspace/projects">
-                  <div className="analyticsCardTitle">
-                    <Check size={24} />
-                    <h3 className="textRegular textS">Completed Projects</h3>
-                  </div>
+                    <p className="analyticsNumber">{completedProjects}</p>
+                  </Link>
 
-                  <p className="analyticsNumber">{completedProjects}</p>
-                </Link>
+                  {/* Active */}
+                  <Link
+                    className="analyticsCard analyticsCard2"
+                    to="/user/workspace/projects"
+                  >
+                    <div className="analyticsCardTitle">
+                      <Hourglass size={16} />
+                      <h3 className="textRegular textXXS">Active Projects</h3>
+                    </div>
 
-                {/* Active */}
-                <Link className="analyticsCard" to="/user/workspace/projects">
-                  <div className="analyticsCardTitle">
-                    <Hourglass size={24} />
-                    <h3 className="textRegular textS">Active Projects</h3>
-                  </div>
-
-                  <p className="analyticsNumber">{activeProjects}</p>
-                </Link>
-              </CardLayout>
-
-              <CardLayout style="cardLayout1">
-                {/* ⭐ Combined Task Status */}
-                <div className="analyticsCard">
-                  <h3>Task Status Overview</h3>
-
-                  <div className="statusBar">
-                    <div
-                      className="statusSegment completed"
-                      style={{
-                        width: `${(completedTasks / totalTasks) * 100 || 0}%`,
-                      }}
-                    />
-                    <div
-                      className="statusSegment progress"
-                      style={{
-                        width: `${(inProgressTasks / totalTasks) * 100 || 0}%`,
-                      }}
-                    />
-                  </div>
-
-                  <div className="statusLabels">
-                    <span className="completed">
-                      Completed: {completedTasks}
-                    </span>
-                    <span className="progress">
-                      In Progress: {inProgressTasks}
-                    </span>
-                  </div>
-                </div>
-              </CardLayout>
+                    <p className="analyticsNumber">{activeProjects}</p>
+                  </Link>
+                </CardLayout>
+              </CardSection>
 
               {/* TASKS SUMMARY */}
-              <CardLayout style="cardLayout3">
-                {/* Total Tasks */}
-                <Link className="analyticsCard" to="/user/workspace/tasks">
-                  <div className="analyticsCardTitle">
-                    <ListDashes size={24} />
-                    <h3 className="textRegular textS">Total Tasks</h3>
+              <CardSection>
+                <CardLayout style="cardLayout1">
+                  {/* ⭐ Combined Task Status */}
+                  <div className="analyticsCard">
+                    <h3 className="textM">Task Status Overview</h3>
+
+                    <div className="statusBar">
+                      <div
+                        className="statusSegment completed"
+                        style={{
+                          width: `${(completedTasks / totalTasks) * 100 || 0}%`,
+                        }}
+                      />
+                      <div
+                        className="statusSegment progress"
+                        style={{
+                          width: `${
+                            (inProgressTasks / totalTasks) * 100 || 0
+                          }%`,
+                        }}
+                      />
+                    </div>
+
+                    <div className="statusLabels">
+                      <span className="completed">
+                        Completed: {completedTasks}
+                      </span>
+                      <span className="progress">
+                        In Progress: {inProgressTasks}
+                      </span>
+                    </div>
                   </div>
+                </CardLayout>
 
-                  <p className="analyticsNumber">{totalTasks}</p>
-                </Link>
+                {/* TASKS SUMMARY */}
+                <CardLayout style="cardLayout3">
+                  {/* Total Tasks */}
+                  <Link
+                    className="analyticsCard analyticsCard2"
+                    to="/user/workspace/tasks"
+                  >
+                    <div className="analyticsCardTitle">
+                      <ListDashes size={16} />
+                      <h3 className="textRegular textXXS">Total Tasks</h3>
+                    </div>
 
-                {/* Completed */}
-                <Link className="analyticsCard" to="/user/workspace/tasks">
-                  <div className="analyticsCardTitle">
-                    <Check size={24} />
-                    <h3 className="textRegular textS">Completed Tasks</h3>
-                  </div>
+                    <p className="analyticsNumber">{totalTasks}</p>
+                  </Link>
 
-                  <p className="analyticsNumber">{completedTasks}</p>
-                </Link>
+                  {/* Completed */}
+                  <Link
+                    className="analyticsCard analyticsCard2"
+                    to="/user/workspace/tasks"
+                  >
+                    <div className="analyticsCardTitle">
+                      <Check size={16} />
+                      <h3 className="textRegular textXXS">Completed Tasks</h3>
+                    </div>
 
-                {/* In Progress */}
-                <Link className="analyticsCard" to="/user/workspace/tasks">
-                  <div className="analyticsCardTitle">
-                    <Hourglass size={24} />
-                    <h3 className="textRegular textS">Tasks In Progress</h3>
-                  </div>
+                    <p className="analyticsNumber">{completedTasks}</p>
+                  </Link>
 
-                  <p className="analyticsNumber">{inProgressTasks}</p>
-                </Link>
-              </CardLayout>
+                  {/* In Progress */}
+                  <Link
+                    className="analyticsCard analyticsCard2"
+                    to="/user/workspace/tasks"
+                  >
+                    <div className="analyticsCardTitle">
+                      <Hourglass size={16} />
+                      <h3 className="textRegular textXXS">Tasks In Progress</h3>
+                    </div>
+
+                    <p className="analyticsNumber">{inProgressTasks}</p>
+                  </Link>
+                </CardLayout>
+              </CardSection>
             </CardSection>
           </div>
         </div>

@@ -146,29 +146,29 @@ export default function Projects() {
 
               <CardLayout style="cardLayout3">
                 {/* Total Projects */}
-                <div className="analyticsCard">
+                <div className="analyticsCard analyticsCard2">
                   <div className="analyticsCardTitle">
-                    <SquaresFour size={24} />
-                    <h3 className="textRegular textS">Total Projects</h3>
+                    <SquaresFour size={16} />
+                    <h3 className="textRegular textXXS">Total Projects</h3>
                   </div>
                   <p className="analyticsNumber">{totalProjects}</p>
                 </div>
 
                 {/* Completed */}
-                <div className="analyticsCard">
+                <div className="analyticsCard analyticsCard2">
                   <div className="analyticsCardTitle">
-                    <Check size={24} />
-                    <h3 className="textRegular textS">Completed Projects</h3>
+                    <Check size={16} />
+                    <h3 className="textRegular textXXS">Completed Projects</h3>
                   </div>
 
                   <p className="analyticsNumber">{completedProjects}</p>
                 </div>
 
                 {/* Active */}
-                <div className="analyticsCard">
+                <div className="analyticsCard analyticsCard2">
                   <div className="analyticsCardTitle">
-                    <Hourglass size={24} />
-                    <h3 className="textRegular textS">Active Projects</h3>
+                    <Hourglass size={16} />
+                    <h3 className="textRegular textXXS">Active Projects</h3>
                   </div>
 
                   <p className="analyticsNumber">{activeProjects}</p>

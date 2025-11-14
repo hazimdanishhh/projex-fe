@@ -154,30 +154,30 @@ export default function Tasks() {
               {/* TASKS SUMMARY */}
               <CardLayout style="cardLayout3">
                 {/* Total Tasks */}
-                <div className="analyticsCard">
+                <div className="analyticsCard analyticsCard2">
                   <div className="analyticsCardTitle">
-                    <ListDashes size={24} />
-                    <h3 className="textRegular textS">Total Tasks</h3>
+                    <ListDashes size={16} />
+                    <h3 className="textRegular textXXS">Total Tasks</h3>
                   </div>
 
                   <p className="analyticsNumber">{totalTasks}</p>
                 </div>
 
                 {/* Completed */}
-                <div className="analyticsCard">
+                <div className="analyticsCard analyticsCard2">
                   <div className="analyticsCardTitle">
-                    <Check size={24} />
-                    <h3 className="textRegular textS">Completed Tasks</h3>
+                    <Check size={16} />
+                    <h3 className="textRegular textXXS">Completed Tasks</h3>
                   </div>
 
                   <p className="analyticsNumber">{completedTasks}</p>
                 </div>
 
                 {/* In Progress */}
-                <div className="analyticsCard">
+                <div className="analyticsCard analyticsCard2">
                   <div className="analyticsCardTitle">
-                    <Hourglass size={24} />
-                    <h3 className="textRegular textS">Tasks In Progress</h3>
+                    <Hourglass size={16} />
+                    <h3 className="textRegular textXXS">Tasks In Progress</h3>
                   </div>
 
                   <p className="analyticsNumber">{inProgressTasks}</p>
