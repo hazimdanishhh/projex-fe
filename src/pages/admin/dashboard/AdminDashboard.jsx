@@ -129,11 +129,9 @@ function AdminDashboard() {
 
               {/* USERS SUMMARY */}
               <CardSection>
+                <SectionHeader icon={Users} title="USER STATUS OVERVIEW" />
                 <CardLayout style="cardLayout1">
-                  {/* ⭐ Combined User Status Bar */}
                   <div className="analyticsCard">
-                    <h3 className="textM">User Status Overview</h3>
-
                     <div className="statusBar">
                       <div
                         className="statusSegment active"
@@ -208,11 +206,13 @@ function AdminDashboard() {
 
               {/* PROJECTS SUMMARY */}
               <CardSection>
+                <SectionHeader
+                  icon={SquaresFour}
+                  title="PROJECT STATUS OVERVIEW"
+                />
                 <CardLayout style="cardLayout1">
                   {/* ⭐ Combined Project Status Bar */}
                   <div className="analyticsCard">
-                    <h3 className="textM">Project Status Overview</h3>
-
                     <div className="statusBar">
                       <div
                         className="statusSegment completed"
@@ -277,11 +277,9 @@ function AdminDashboard() {
 
               {/* TASKS SUMMARY */}
               <CardSection>
+                <SectionHeader icon={ListDashes} title="TASK STATUS OVERVIEW" />
                 <CardLayout style="cardLayout1">
-                  {/* ⭐ Combined Task Status */}
                   <div className="analyticsCard">
-                    <h3 className="textM">Task Status Overview</h3>
-
                     <div className="statusBar">
                       <div
                         className="statusSegment completed"
@@ -344,51 +342,6 @@ function AdminDashboard() {
                 </CardLayout>
               </CardSection>
             </CardSection>
-          </div>
-        </div>
-      </section>
-
-      <section className={darkMode ? "sectionDark" : "sectionLight"}>
-        <div className="sectionWrapper">
-          <div className="sectionContent" style={{ gap: "10px" }}>
-            <SectionHeader icon={Users} title="USERS" />
-            {usersIsLoading ? (
-              <div className="loadingIcon">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{
-                    repeat: Infinity,
-                    ease: "linear",
-                    duration: 1,
-                  }}
-                >
-                  <CircleNotch />
-                </motion.div>
-              </div>
-            ) : users.length === 0 ? (
-              <p>There are no users available</p>
-            ) : null}
-
-            <CardLayout>
-              {users.map((u) => (
-                <AdminUserCard
-                  key={u.id}
-                  user={u}
-                  onUserUpdated={(updatedUser) =>
-                    setUsers((prev) =>
-                      prev.map((usr) =>
-                        usr.id === updatedUser.id ? updatedUser : usr
-                      )
-                    )
-                  }
-                  onUserDeleted={(deletedUserId) =>
-                    setUsers((prev) =>
-                      prev.filter((usr) => usr.id !== deletedUserId)
-                    )
-                  }
-                />
-              ))}
-            </CardLayout>
           </div>
         </div>
       </section>
